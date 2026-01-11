@@ -14,6 +14,12 @@ const agregarCurso = (e) => {
     }
 }
 
+const limpiarHTML = (referencia) => {
+    while (referencia.firstChild) {
+        referencia.removeChild(referencia.firstChild);
+    }
+}
+
 const carritoHTML = () => {
 
     limpiarHTML(contenedorCarrito)
@@ -61,15 +67,24 @@ const leerDatosCurso = (curso) => {
     carritoHTML()
 }
 
-const limpiarHTML = (referencia) => {
-    while (referencia.firstChild) {
-        referencia.removeChild(referencia.firstChild);
+const eliminarCurso = (e) => {
+    if (e.target.classList.contains("borrar-curso")) {
+        const cursoId = e.target.getAttribute("data-id");
+        articulosCarrito = articulosCarrito.filter(curso => curso.id !== cursoId)
     }
 
+    carritoHTML()
+}
+
+const vaciarCarrito = () => {
+    articulosCarrito = []
+    limpiarHTML(contenedorCarrito)
 }
 
 const cargarEventListener = () => {
     listaCursos.addEventListener("click", agregarCurso);
+    carrito.addEventListener("click", eliminarCurso);
+    btnVaciarCarrito.addEventListener("click", vaciarCarrito)
 }
 
 cargarEventListener();
