@@ -43,7 +43,20 @@ const leerDatosCurso = (curso) => {
         cantidad: 1,
     }
 
-    articulosCarrito = [...articulosCarrito, infoCurso]
+    let existe = false;
+    let index = -1
+
+    for (let i = 0; i < articulosCarrito.length; i++) {
+        if (articulosCarrito[i].id == infoCurso.id) {
+            existe = true;
+            index = i
+            break;
+        }
+    }
+
+    existe ?
+        articulosCarrito[index].cantidad++ :
+        articulosCarrito = [...articulosCarrito, infoCurso]
 
     carritoHTML()
 }
@@ -52,6 +65,7 @@ const limpiarHTML = (referencia) => {
     while (referencia.firstChild) {
         referencia.removeChild(referencia.firstChild);
     }
+
 }
 
 const cargarEventListener = () => {
