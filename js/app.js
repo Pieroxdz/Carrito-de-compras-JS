@@ -20,6 +20,10 @@ const limpiarHTML = (referencia) => {
     }
 }
 
+const sincronizarStorage = () => {
+    localStorage.setItem("carrito", JSON.stringify(articulosCarrito))
+}
+
 const carritoHTML = () => {
 
     limpiarHTML(contenedorCarrito)
@@ -38,6 +42,9 @@ const carritoHTML = () => {
 
         contenedorCarrito.appendChild(row)
     })
+
+    //Agregar el carrito de compras al storage
+    sincronizarStorage();
 }
 
 const leerDatosCurso = (curso) => {
@@ -84,6 +91,12 @@ const vaciarCarrito = () => {
 const cargarEventListener = () => {
     listaCursos.addEventListener("click", agregarCurso);
     carrito.addEventListener("click", eliminarCurso);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        articulosCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carritoHTML();
+    })
+
     btnVaciarCarrito.addEventListener("click", vaciarCarrito)
 }
 
